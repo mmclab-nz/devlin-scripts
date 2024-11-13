@@ -1,0 +1,15 @@
+## Try Trimmomatic
+for sampleName in $(ls -d ag1232/AG* | perl -pe 's/^ag1232.//'); do
+   echo ${sampleName}
+TrimmomaticPE -threads 12 -summary
+  trimmed_ag1232/${sampleName}/stats.txt \
+     ag1232/${sampleName}/*_L6_1.fq.gz ag1232/${sampleName}/*_L6_2.fq.gz \
+     -baseout trimmed_ag1232/${sampleName}/trimmed_${sampleName}_L6.fq.gz \
+     ILLUMINACLIP:TruSeq3-PE.fa:2:30:10:2:True LEADING:3 TRAILING:3 MINLEN:50
+
+TrimmomaticPE -threads 12 -summary
+trimmed_ag1232/${sampleName}/stats.txt \
+     ag1232/${sampleName}/*_L8_1.fq.gz ag1232/${sampleName}/*_L8_2.fq.gz \
+     -baseout trimmed_ag1232/${sampleName}/trimmed_${sampleName}_L8.fq.gz \
+     ILLUMINACLIP:TruSeq3-PE.fa:2:30:10:2:True LEADING:3 TRAILING:3 MINLEN:50
+done
